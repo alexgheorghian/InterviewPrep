@@ -2,6 +2,7 @@
 let mongoose = require('mongoose');
 
 let BirdSchema = mongoose.Schema({
+  name: String,
   description: String,
   imageUrl: String,
   dateCreated: { type: Date, default: Date.now },
