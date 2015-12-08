@@ -7,8 +7,12 @@ let passport = require('passport');
 let mongoose = require('mongoose');
 require('./models/user');
 require('./config/passport');
-require('./models/bird');
-require('./models/birdSighting');
+// require('./models/bird');
+// require('./models/birdSighting');
+
+if(process.env.NODE_ENV === 'test') mongoose.connect('mongodb://localhost/BirdNerd-test')
+else mongoose.connect('mongodb://localhost/BirdNerd')
+
 
 app.set('views', './views');
 app.engine('.html', require('ejs').renderFile);
@@ -25,8 +29,8 @@ app.use(passport.initialize());
 
 //importing our routes to local variables
 let userRoutes = require('./routes/userRoutes');
-let birdRoutes = require('./routes/birdRoutes');
-let birdSightingRoutes = require('./routes/birdSightingRoutes');
+// let birdRoutes = require('./routes/birdRoutes');
+// let birdSightingRoutes = require('./routes/birdSightingRoutes');
 
 app.get('/', function(req, res) {
 	res.render('index');
@@ -34,10 +38,10 @@ app.get('/', function(req, res) {
 
 //server.js looks at all '/api/v1/' requests and pulls in the appropriate Routes.js to process them
 app.use('/api/v1/users/', userRoutes);
-app.use('/api/v1/birds/', birdRoutes);
-app.use('/api/v1/birdSightings', birdSightingRoutes);
+// app.use('/api/v1/birds/', birdRoutes);
+// app.use('/api/v1/birdSightings', birdSightingRoutes);
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
 	if(process.env.NODE_ENV !== 'test') {console.log(err);}
 	res.status(500).send(err);
 });
