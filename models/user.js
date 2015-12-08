@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 
-let UserSchema = new mongoose.UserSchema({
+let UserSchema = new mongoose.Schema({
   userName:   String,
   local: {              // the 'local' document contains an email address and a password
     email: {
@@ -39,11 +39,11 @@ let UserSchema = new mongoose.UserSchema({
         });
     };
 
-    UserSchema.methds.generateJWT = function() {
+    UserSchema.methods.generateJWT = function() {
       return jwt.sign({
         _id: this._id,
         email: this.local.email
       }, 'secret');
     };
-    
+
 module.exports = mongoose.model('User', UserSchema);
