@@ -1,0 +1,48 @@
+<md-content>
+
+  // *** Display bird details *************************************************
+  <md-card>
+    <div layout layout-align="center">
+      <h1>{{vm.bird.name}}</h1>
+    </div>
+    <div style="margin: auto">
+      <img ng-src="{{vm.bird.imageUrl}}" ng-alt="{{vm.bird.name}}" />
+    </div>
+    <h3><i>Description: </i>  {{vm.bird.description}}</h3>
+    <h3><i>Date created: </i> {{vm.bird.dateCreated}}</h3>
+    <h3><i>Created by: </i>   {{vm.bird.userName.userName}}</h3>
+  </md-card>
+
+  // *** User can enter a new sighting for this bird **************************
+  <md-card>
+    <div layout layout-align="center">
+      <h2>Enter a new bird sighting</h2>
+      <form ng-submit="vm.createBirdSighting()" layout layout-padding>
+        <md-input-container flex="90">
+            <label>Description</label>
+            <input type="text" ng-model="vm.birdSighting.description" />
+            <label>Image URL</label>
+            <input type="text" ng-model="vm.birdSighting.imageUrl" />
+        </md-input-container>
+        <md-button type="submit" flex class="md-raised md-warn">Submit</md-button>
+      </form>
+    </div>
+  </md-card>
+
+  // *** List all sightings for this bird *************************************
+  <md-card>
+    <md-list-item ng-show="vm.bird.birdSightings" class="md-3-line" ng-repeat="d in vm.bird.birdSightings">
+      <div style="margin: auto">
+        <img ng-src="{{d.imageUrl}}" ng-alt="{{d.description}}" />
+      </div>
+      <div class="md-list-item-text" layout="column">
+        <h3><i>Description: </i>  {{d.description}}</h3>
+        <h3><i>Date created: </i> {{d.dateCreated}}</h3>
+        <h3><i>Created by: </i>   {{d.userName.userName}}</h3>
+        <md-button class="md-raised md-primary" ui-sref="updateBirdSighting({id: d._id})">Update</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.deleteBirdSighting(d)">Delete</md-button>
+      </div>
+    </md-list-item>
+  </md-card>
+
+</md-content>
