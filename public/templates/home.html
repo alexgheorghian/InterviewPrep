@@ -1,1 +1,18 @@
-<h1>{{vm.title}}</h1>
+<div layout>
+    <span flex></span><md-button id="create-new-bird-button" class="md-raised md-primary" ui-sref="CreateBird"><i class="material-icons">note_add</i> Create a new bird</md-button><span flex="5"></span>
+</div>
+
+
+<div class="md-padding" layout="row" layout-wrap>
+    <div flex="25" layout="column" ng-repeat="bird in vm.birds">
+      <md-card>
+        <img ng-src="{{bird.imageUrl}}" class="md-card-image" style="height: 200px;">
+        <md-card-content>
+          <p>{{bird.name}}</p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="center center">
+          <md-button class="md-raised md-primary" ui-sref="Bird({id: bird._id})">See more</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+</div>

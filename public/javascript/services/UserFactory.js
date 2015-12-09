@@ -9,7 +9,8 @@
 			var q = $q.defer();
 			//here we stuff the {user} that we populated in the ui into a req and post it to the server
 			$http.post('/api/v1/users/register', user).then(function(res) {
-				//later we need to add the 'o.setToken()' here so that the user is logged in after registration
+				console.log(res.data.token);
+				o.setToken(res.data.token);
 				q.resolve(res.data);
 			});
 			return q.promise;
@@ -28,7 +29,7 @@
 			return $window.localStorage.getItem('token');
 		};
 
-		o.setToken = function() {
+		o.setToken = function(token) {
 			$window.localStorage.setItem('token', token);
 			o.setUser();
 

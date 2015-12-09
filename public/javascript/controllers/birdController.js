@@ -9,10 +9,18 @@
 	function BirdController(BirdFactory, $state, $stateParams) {
 		var vm = this;
 
-    if(!$stateParams.id) $state.go('Home');
-    BirdFactory.getBirdById($stateParams.id).then(function(res) {
-      vm.bird = res;
-    });
+    	if(!$stateParams.id) $state.go('Home');
+    	BirdFactory.getBirdById($stateParams.id).then(function(res) {
+      		vm.bird = res;
+    	});
+
+		vm.deleteBird = function() {
+        BirdFactory.deleteBird($stateParams.id).then(function() {
+          $state.go('Home');
+        });
+      };
+
+	/*
 
 		vm.createBirdSighting = function() {
 			HomeFactory.createBirdSighting(vm.birdSighting).then(function(res) {
@@ -25,6 +33,6 @@
         vm.bird.birdSightings.splice(vm.bird.birdSightings.indexOf(birdSighting), 1);
       });
     }
-
+*/
 	}
 })();

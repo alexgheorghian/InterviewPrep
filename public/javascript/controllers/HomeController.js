@@ -3,8 +3,11 @@
 	angular.module('app')
 	.controller('HomeController', HomeController);
 
-	function HomeController() {
+	function HomeController(BirdFactory) {
 		var vm = this;
-		vm.title = 'Welcome to our App!';
+
+		BirdFactory.getAllBirds().then(function(res) {
+			vm.birds = res;
+		});
 	}
 })();
