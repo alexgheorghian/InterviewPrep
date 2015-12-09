@@ -1,0 +1,31 @@
+body {
+	background: #EEEEEE;
+	font-family: Helvetica;
+    font-weight: 300;
+}
+
+md-toolbar h2 {cursor: pointer;}
+
+md-card {
+    padding: 0 50px 50px 50px;
+    margin-top: 50px;
+}
+
+hgroup p {
+    font-size: 2em;
+    text-align: center;
+}
+
+#create-bird-submit, #create-new-bird-button {
+    margin-top: 35px;
+}
+
+.top-right-button {
+    margin-top: 35px;
+}
+
+md-content p {
+	text-align: center;
+}
+
+.material-icons {vertical-align: middle;}

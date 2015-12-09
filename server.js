@@ -7,7 +7,7 @@ let passport = require('passport');
 let mongoose = require('mongoose');
 require('./models/user');
 require('./config/passport');
-// require('./models/bird');
+require('./models/bird');
 // require('./models/birdSighting');
 
 if(process.env.NODE_ENV === 'test') mongoose.connect('mongodb://localhost/BirdNerd-test')
@@ -29,7 +29,7 @@ app.use(passport.initialize());
 
 //importing our routes to local variables
 let userRoutes = require('./routes/userRoutes');
-// let birdRoutes = require('./routes/birdRoutes');
+let birdRoutes = require('./routes/birdRoutes');
 // let birdSightingRoutes = require('./routes/birdSightingRoutes');
 
 app.get('/', function(req, res) {
@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
 
 //server.js looks at all '/api/v1/' requests and pulls in the appropriate Routes.js to process them
 app.use('/api/v1/users/', userRoutes);
-// app.use('/api/v1/birds/', birdRoutes);
+app.use('/api/v1/birds/', birdRoutes);
 // app.use('/api/v1/birdSightings', birdSightingRoutes);
 
 app.use((err, req, res, next) => {

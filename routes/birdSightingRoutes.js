@@ -1,6 +1,6 @@
 "use strict";
 let express = require('express');
-let router = express.Router();  
+let router = express.Router();
 let mongoose = require('mongoose');
 let BirdSighting = mongoose.model('BirdSighting');
 
@@ -8,6 +8,16 @@ let BirdSighting = mongoose.model('BirdSighting');
 router.get('/', (req, res) => {
   BirdSighting.find({}).exec((err, result) => {
     if(err) return res.status(500).send(err);
+    res.send(result);
+  });
+});
+
+// POST /api/v1/birdSighting
+router.post('/', (req, res) => {
+  let new_birdSighting = new BirdSighting(req.body);
+  new_birdSighting.save((err, result) => {
+    if(err) return res.status(500).send("Error in the database.");
+    if(!result) return res.status(400).send("Could not save the dino. Check your fields.");
     res.send(result);
   });
 });
@@ -22,15 +32,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// POST /api/v1/birdSighting
-router.post('/', (req, res) => {
-  let new_birdSighting = new BirdSighting(req.body);
-  new_birdSighting.save((err, result) => {
-    if(err) return res.status(500).send("Error in the database.");
-    if(!result) return res.status(400).send("Could not save the dino. Check your fields.");
-    res.send(result);
-  });
-});
+
 
 // PUT /api/v1/birdSighting/:id
 router.put('/:id', (req, res) => {
