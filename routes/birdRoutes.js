@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 // POST /api/v1/birds
 router.post('/', (req, res) => {
   let bird = new Bird(req.body);
+  //bird.userName = req.payload._id
   bird.save((err, result) => {
     if(err) return res.status(500).send("Error in the database.");
     if(!result) return res.status(400).send("Could not save the bird.");

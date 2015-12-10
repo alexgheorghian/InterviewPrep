@@ -1,7 +1,7 @@
-<div layout>
+<div layout ng-show="global.status._id">
     <span flex></span>
     <md-button class="md-raised md-primary top-right-button" ui-sref="UpdateBird({id: vm.bird._id})"><i class="material-icons">mode_edit</i> Edit Bird</md-button>
-    <md-button class="md-raised md-primary top-right-button" ng-click="vm.deleteBird()"><i class="material-icons">delete</i> Delete Bird</md-button>
+    <md-button class="md-raised md-primary top-right-button" ng-click="vm.confirmDelete($event)"><i class="material-icons">delete</i> Delete Bird</md-button>
     <span flex="5"></span>
 </div>
 
