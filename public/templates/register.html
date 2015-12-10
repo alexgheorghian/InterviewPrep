@@ -3,24 +3,24 @@
     <div layout="column" layout-align="center" flex>
         <md-card>
             <hgroup>
-                <p>Join your fellow bird nerds!</p>
+                <p>Register</p>
             </hgroup>
             <form ng-submit="global.register()">
                 <md-input-container>
-                  <label>Email</label>
-                  <input type="email" ng-model="global.user.email" required />
+                    <label>Username</label>
+                    <input type="text" ng-model="global.user.userName"/>
                 </md-input-container>
                 <md-input-container>
-                  <label>Name</label>
-                  <input type="text" ng-model="global.user.userName" required />
+                    <label>Email</label>
+                    <input type="text" ng-model="global.user.email"/>
                 </md-input-container>
                 <md-input-container>
-                  <label>Password</label>
-                  <input type="password" ng-model="global.user.password" required />
+                    <label>Password</label>
+                    <input type="text" ng-model="global.user.password"/>
                 </md-input-container>
                 <div layout>
                     <span flex="35"></span>
-                    <md-button id="create-bird-submit" class="md-raised md-primary" type="submit" flex>Register</md-button>
+                    <md-button class="md-raised md-primary" type="submit" flex>Register</md-button>
                     <span flex="35"></span>
                 </div>
             </form>

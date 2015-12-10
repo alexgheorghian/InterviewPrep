@@ -3,24 +3,20 @@
     <div layout="column" layout-align="center" flex>
         <md-card>
             <hgroup>
-                <p>Create a new bird listing</p>
+                <p>Post a bird sighting!</p>
             </hgroup>
-            <form ng-submit="vm.createBird()">
-                <md-input-container>
-                    <label>Name</label>
-                    <input type="text" ng-model="vm.bird.name"/>
-                </md-input-container>
+            <form ng-submit="vm.createBirdSighting()">
                 <md-input-container>
                     <label>Description</label>
-                    <input type="text" ng-model="vm.bird.description"/>
+                    <input type="text" ng-model="vm.sighting.description"/>
                 </md-input-container>
                 <md-input-container>
                     <label>Image URL</label>
-                    <input type="text" ng-model="vm.bird.imageUrl"/>
+                    <input type="text" ng-model="vm.sighting.imageUrl"/>
                 </md-input-container>
                 <div layout>
                     <span flex="35"></span>
-                    <md-button class="md-raised md-primary" type="submit" flex>Submit</md-button>
+                    <md-button class="md-raised md-primary" type="submit" flex>Post</md-button>
                     <span flex="35"></span>
                 </div>
             </form>

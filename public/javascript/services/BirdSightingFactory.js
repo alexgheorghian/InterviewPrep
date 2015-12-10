@@ -1,55 +1,59 @@
 (function() {
-	'use strict';
-	angular.module('app')
-	.factory('BirdSightingFactory', BirdSightingFactory);
+    'use strict';
+    angular.module('app')
+    .factory('BirdSightingFactory', BirdSightingFactory);
 
-	function BirdSightingFactory($http, $q, $window) {
-		var o = {};
+    function BirdSightingFactory($http, $q, $window) {
+        var o = {};
 
-		o.getAllBirdSightings = function() {
-				var q = $q.defer();
-				$http.get('/api/v1/birdsightings/').then(function(res) {
-						q.resolve(res.data);
-				}, function(err) {
-						q.reject();
-				});
-				return q.promise;
-		};
+        o.getAllBirdSightings = function(birdId) {
+            var q = $q.defer();
+            $http.get('/api/v1/birds/sightings/' + birdId).then(function(res) {
+                q.resolve(res.data);
+            }, function(err) {
+                q.reject();
+            });
+            return q.promise;
+        };
 
-		o.createBirdSighting = function(birdSighting) {
-				var q = $q.defer();
-				$http.post('/api/v1/birdSightings/', birdSighting).then(function(res) {
-						q.resolve(res.data);
-				}, function(err) {
-						q.reject();
-				});
-				return q.promise;
-	  };
-
-		o.getBirdSightingById = function(id) {
+        o.createBirdSighting = function(birdSighting, birdId) {
 			var q = $q.defer();
-			$http.get('/api/v1/birdSightings/', + id).then(function(res) {
+			$http.post('/api/v1/birds/sightings/' + birdId, birdSighting, {
+				headers: { authorization: 'Bearer ' + $window.localStorage.getItem('token') }
+			}).then(function(res) {
 				q.resolve(res.data);
 			});
 			return q.promise;
 		};
 
-	 o.deleteBirdSighting = function(id) {
+        o.getBirdSightingById = function(sightingId) {
 			var q = $q.defer();
-			$http.delete('/api/v1/birdSightings/' + id).then(function() {
+			$http.get('/api/v1/birds/sightings/update/' + sightingId).then(function(res) {
+				q.resolve(res.data);
+			});
+			return q.promise;
+		};
+
+		o.deleteBirdSighting = function(birdId, sightingId) {
+			var q = $q.defer();
+			$http.delete('/api/v1/birds/sightings/' + birdId + '/' + sightingId, {
+                headers: { authorization: 'Bearer ' + $window.localStorage.getItem('token') }
+            }).then(function() {
 				q.resolve();
 			});
 			return q.promise;
 		};
 
-		o.updateBirdSighting = function(birdSighting) {
+		o.updateBirdSighting = function(sighting) {
 			var q = $q.defer();
-			$http.put('/api/v1/birdSightings/' + birdSighting._id, birdSighting).then(function() {
+			$http.put('/api/v1/birds/sightings/update/' + sighting._id, sighting, {
+                headers: { authorization: 'Bearer ' + $window.localStorage.getItem('token') }
+            }).then(function() {
 				q.resolve();
 			});
 			return q.promise;
 		};
 
-		return o;
-	}
+        return o;
+    }
 })();

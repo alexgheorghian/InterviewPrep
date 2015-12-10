@@ -16,10 +16,6 @@ hgroup p {
     text-align: center;
 }
 
-#create-bird-submit, #create-new-bird-button {
-    margin-top: 35px;
-}
-
 .top-right-button {
     margin-top: 35px;
 }
@@ -30,13 +26,9 @@ md-content p {
 
 .material-icons {vertical-align: middle;}
 
-md-toolbar md-input-container.md-default-theme label, md-toolbar md-input-container.md-default-theme .md-placeholder {
-    color:white !important;
-	font-size: .75em;
-}
-
-md-toolbar input.md-input:focus .input-field, md-toolbar input.md-input {color: white;}
-
-md-toolbar input.md-input {border-color: white;}
-
 .button-padding {padding-top: 18px;}
+
+.md-card-image {
+	height: 200px;
+	margin-top: 10px;
+}

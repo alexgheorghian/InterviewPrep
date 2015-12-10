@@ -3,10 +3,7 @@
 	angular.module('app')
 	.controller('BirdController', BirdController);
 
-	// This function is used to display detail on a bird.
-	// It returns a bird object to the calling function.
-	// This needs to be called from an html file using: ui-sref="BirdDetails({id: c._id})
-	function BirdController(BirdFactory, $state, $stateParams, $mdDialog) {
+	function BirdController(BirdFactory, BirdSightingFactory, $state, $stateParams, $mdDialog) {
 		var vm = this;
 
 		if(!$stateParams.id) $state.go('Home');
@@ -14,11 +11,15 @@
 			vm.bird = res;
 		});
 
+		BirdSightingFactory.getAllBirdSightings($stateParams.id).then(function(res) {
+			vm.sightings = res;
+		}, function(err) {
+			// mdToast here
+		});
 
-		vm.confirmDelete = function(ev) {
-			// Appending dialog to document.body to cover sidenav in docs app
+		vm.deleteBird = function(ev) {
 			var confirm = $mdDialog.confirm()
-			.title('Cofirm deletion')
+			.title('Confirm deletion')
 			.content('Would you like to delete the bird?')
 			.ariaLabel('Delete the bird')
 			.targetEvent(ev)
@@ -33,25 +34,21 @@
 			});
 		};
 
-		vm.deleteBird = function() {
-			BirdFactory.deleteBird($stateParams.id).then(function() {
-				$state.go('Home');
+		vm.deleteBirdSighting = function(ev, sightingId) {
+			var confirm = $mdDialog.confirm()
+			.title('Confirm deletion')
+			.content('Would you like to delete the bird sighting?')
+			.ariaLabel('Delete the bird sighting')
+			.targetEvent(ev)
+			.ok('Yes')
+			.cancel('No');
+			$mdDialog.show(confirm).then(function() {
+				BirdSightingFactory.deleteBirdSighting($stateParams.id, sightingId).then(function() {
+					$state.go('Bird', { id: $stateParams.id }, {reload: true});
+				});
+			}, function() {
+				//
 			});
 		};
-
-		/*
-
-		vm.createBirdSighting = function() {
-		HomeFactory.createBirdSighting(vm.birdSighting).then(function(res) {
-		vm.bird.birdSightings.push(res);
-	});
-};
-
-vm.deleteBirdSighting = function(birdSighting) {
-BirdFactory.deleteBirdSighting(birdSighting._id) then(function() {
-vm.bird.birdSightings.splice(vm.bird.birdSightings.indexOf(birdSighting), 1);
-});
-}
-*/
 }
 })();

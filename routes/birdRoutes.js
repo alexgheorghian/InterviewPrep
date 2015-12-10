@@ -2,48 +2,48 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-let Bird = mongoose.model('Bird');
 let User = mongoose.model('User');
+let Bird = mongoose.model('Bird');
+let BirdSighting = mongoose.model('BirdSighting');
 let jwt = require('express-jwt');
 let auth = jwt({
   userProperty: 'payload',
-  secret: 'secret'
+  secret: 'birdnerd'
 });
 
 // GET /api/v1/birds/profile
 router.get("/profile/", auth, (req, res, next) => {
+  console.log('hi');
   Bird.find({ userName : req.payload._id })
-  // .populate('userName')
-  .exec((err, birds) => {
+  // .populate('userName', 'local.email')
+  .exec((err, result) => {
     if(err) return next(err);
-    res.send(birds);
+    res.send(result);
   });
 });
 
 // GET /api/v1/birds
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   Bird.find({})
+    .populate('userName', 'local.email')
     .exec((err, result) => {
-    if(err) return res.status(500).send(err);
-    res.send(result);
-  });
+      if(err) return next(err);
+      res.send(result);
+    });
 });
 
 // POST /api/v1/birds
-router.post('/', auth, (req, res) => {
+router.post('/', auth, (req, res, next) => {
   let bird = new Bird(req.body);
-
   bird.userName = req.payload._id;
-  // bird.imageUrl = req.body.SOMETHING;
-
   bird.save((err, result) => {
-    if(err) return res.status(500).send("Error in the database.");
-    if(!result) return res.status(400).send("Could not save the bird.");
-    User.update({ _id: req.payload._id }), { $push: { birds: result._id }}, (err, user) => {
+    if(err) return next(err);
+    if(!result) return next(`Could not create result`);
+    User.update({ _id: req.payload._id }, { $push: { birds: result._id }}, (err, user) => {
       if(err) return next(err);
       if(!user) return next(`Could not push bird into user`);
-    }
-    res.send(result);
+      res.send(result);
+    });
   });
 });
 
@@ -57,22 +57,25 @@ router.get('/:id', (req, res) => {
 });
 
 // DELETE /api/v1/birds/:id
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res, next) => {
+  let birdId = req.params.id;
   Bird.remove({ _id: req.params.id }, (err, result) => {
-    if(err) return res.status(500).send(err);
-    console.log(result);
-    if(result.result.n !== 1) return res.status(500).send("Oops, something went wrong.");
-    res.send('Success');
+    if(err) return next(err);
+    if(!result) return next(`Could not create result`);
+    User.update({ _id: req.payload._id }, { $pull: { birds: birdId }}, (err, user) => {
+      if(err) return next(err);
+      if(!user) return next(`Could not remove bird from user`);
+      res.send(result);
+    });
   });
 });
 
 // PUT /api/v1/birds/:id
-router.put('/:id', (req, res) => {
+router.put('/:id', auth, (req, res) => {
     Bird.update({_id: req.params.id}, req.body, (err, result) => {
         if(err) res.status(500).send(err);
         res.send(result);
     });
 });
-
 
 module.exports = router;
