@@ -5,6 +5,7 @@
 
 	function Config($stateProvider, $urlRouterProvider) {
 		$stateProvider
+
 			.state('Home',{
 				url: '/',
 				templateUrl: '/templates/home.html',
@@ -28,7 +29,13 @@
 			    url: '/birds/update/:id',
 			    templateUrl: '/templates/updateBird.html',
 			    controller: 'UpdateBirdController as vm'
+			})
+			.state('UpdateBirdSightings',{
+				url: '/BirdSighting/:id',
+				templateUrl: '/templates/updateBirdSightings.html',
+	      controller: 'UpdateBirdSightings as vm'
 			});
+
 		$urlRouterProvider.otherwise('/');
 
 	}
