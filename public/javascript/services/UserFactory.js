@@ -25,6 +25,8 @@
 			return q.promise;
 		};
 
+		
+
 		o.getToken = function() {
 			return $window.localStorage.getItem('token');
 		};

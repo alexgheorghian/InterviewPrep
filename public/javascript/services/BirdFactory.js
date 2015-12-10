@@ -5,6 +5,8 @@
 
 	function BirdFactory($http, $q, $window) {
 		var o = {};
+		var token = {headers: 
+			{ authorization: 'Bearer ' + $window.localStorage.getItem('token') }};
 
 		o.getAllBirds = function() {
 				var q = $q.defer();
@@ -18,7 +20,7 @@
 
 		o.createBird = function(bird) {
 			var q = $q.defer();
-			$http.post('/api/v1/birds/', bird).then(function(res) {
+			$http.post('/api/v1/birds/', bird, token).then(function(res) {
 				q.resolve(res.data);
 			});
 			return q.promise;
@@ -34,7 +36,7 @@
 
 		o.deleteBird = function(id) {
 			var q = $q.defer();
-			$http.delete('/api/v1/birds/' + id).then(function() {
+			$http.delete('/api/v1/birds/' + id, token).then(function() {
 				q.resolve();
 			});
 			return q.promise;
@@ -42,7 +44,7 @@
 
 		o.updateBird = function(bird) {
 			var q = $q.defer();
-			$http.put('/api/v1/birds/' + bird._id, bird).then(function() {
+			$http.put('/api/v1/birds/' + bird._id, bird, token).then(function() {
 				q.resolve();
 			});
 			return q.promise;

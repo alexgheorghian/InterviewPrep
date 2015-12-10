@@ -10,6 +10,16 @@ let auth = jwt({
   secret: 'secret'
 });
 
+// GET /api/v1/birds/profile
+router.get("/profile/", auth, (req, res, next) => {
+  Bird.find({ userName : req.payload._id })
+  // .populate('userName')
+  .exec((err, birds) => {
+    if(err) return next(err);
+    res.send(birds);
+  });
+});
+
 // GET /api/v1/birds
 router.get('/', (req, res) => {
   Bird.find({})
@@ -20,11 +30,17 @@ router.get('/', (req, res) => {
 });
 
 // POST /api/v1/birds
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
   let bird = new Bird(req.body);
+  bird.userName = req.payload._id;
+  // bird.imageUrl = req.body.SOMETHING;
   bird.save((err, result) => {
     if(err) return res.status(500).send("Error in the database.");
     if(!result) return res.status(400).send("Could not save the bird.");
+    User.update({ _id: req.payload._id }), { $push: { birds: result._id }}, (err, user) => {
+      if(err) return next(err);
+      if(!user) return next(`Could not push bird into user`);
+    }
     res.send(result);
   });
 });

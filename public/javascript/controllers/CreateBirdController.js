@@ -8,6 +8,7 @@
 
         vm.createBird = function() {
             BirdFactory.createBird(vm.bird).then(function(res) {
+                
                 $state.go('Home');
             });
         };

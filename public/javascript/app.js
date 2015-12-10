@@ -34,6 +34,11 @@
 				url: '/BirdSighting/:id',
 				templateUrl: '/templates/updateBirdSightings.html',
 	      controller: 'UpdateBirdSightings as vm'
+	  		})
+	  		.state('Profile', {
+	  			url: '/profile',
+	  			templateUrl: '/templates/profile.html',
+	  			controller: 'ProfileController as vm'
 			});
 
 		$urlRouterProvider.otherwise('/');

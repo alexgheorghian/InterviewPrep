@@ -4,10 +4,12 @@
 	function GlobalController(UserFactory, $state) {
 		var vm = this;
 		vm.user = {};
+		vm.newUser = {};
+
 		vm.status = UserFactory.status;
 
 		vm.register = function() {
-			UserFactory.register(vm.user).then(function(res) {
+			UserFactory.register(vm.newUser).then(function(res) {
 				$state.go('Home');
 			});
 		};
@@ -18,7 +20,9 @@
 			}); 
 		};
 
-		vm.logout = UserFactory.removeToken;
+		vm.logout = function() {UserFactory.removeToken();
+		 $state.go('Home');}
+		
 		
 	}
 })();

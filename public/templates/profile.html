@@ -1,0 +1,17 @@
+<md-content layout layout-wrap>
+  <div flex='33' ng-repeat="b in vm.birds">
+        <md-card layout-padding layout ='column' ui-sref='Bird({id: b._id})'>
+          <img class="md-card-image" ng-src="{{ b.imageUrl }}" alt="image of a {{b.name}}" style="width: 90%; height: auto; max-height: 250px; margin: auto;" >
+          <md-card-content>
+            <h2>{{b.name}}</h2>
+            <p>{{b.desription}}</p>
+            <p>{{ b.dateCreated | date:'medium' }}</p>
+            </md-card-content>
+            <div class="md-actions" layout="row|column" layout-align="start|end|center start|end|center">
+               <md-button ui-sref='EditPost({id: b._id})'>Edit</md-button>
+               <md-button>Delete</md-button>
+             </div>
+          
+        </md-card>
+  </div>
+</md-content>
