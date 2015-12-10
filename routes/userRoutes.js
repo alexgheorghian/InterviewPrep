@@ -13,7 +13,7 @@ let auth = jwt({
 });
 
 router.post('/register', (req, res, next) => {
-	if(!req.body.email || !req.body.password) return next(`Please enter email and password`);
+	if(!req.body.email || !req.body.password) return next('Please enter email and password.');
 	let user = new User();
 	user.local.email = req.body.email;
 
@@ -24,7 +24,7 @@ router.post('/register', (req, res, next) => {
 
 		user.save((err,result) => {
 			if(err) return next(err);
-			if(!result) return next(`could not create user`);
+			if(!result) return next('Could not create user.');
 			res.send({ token: result.generateJWT() });
 
 		});

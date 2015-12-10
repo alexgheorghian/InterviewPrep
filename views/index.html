@@ -10,10 +10,12 @@
 </head>
 
 <body ng-controller="GlobalController as global">
-	<md-toolbar>
-		<div layout='row' ng-show="!global.status._id">
-			<div layout-align='left'>
 
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 ui-sref="Home">Bird Nerd</h2>
+			<span flex></span>
+			<div layout layout-align="center" ng-show="!global.status._id">
 				<md-input-container>
 		        	<label>Email</label>
 		        	<input type="email" ng-model="global.user.email" />
@@ -23,31 +25,23 @@
 			        <label>Password</label>
 			        <input type="password" ng-model="global.user.password" />
 			    </md-input-container>
-		    </div>
-
-		    <div layout layout-align="center">
-		        <md-button class="md-raised md-warn" ng-click="global.login()">Login</md-button>
-		    </div>
-		    <span flex></span>
-		<div layout layout-align="right" >
-			<md-button ui-sref='Home'>Home</md-button>
-			<md-button ui-sref="Register">Register</md-button>
-		</div>
-		</div>
-
-
-
-		<div layout='row' ng-show="global.status._id">
-			<span flex='65'></span>
-			<div layout layout-align='left'>
-				<md-button class="md-raised md-warn" ui-sref='Home'>Home</md-button>
+				<md-button ng-click="global.login()">Login</md-button>
+				<md-button class="button-padding" ui-sref="Register">Register</md-button>
 			</div>
+
 			<md-button class='md-raised md-warn' ui-sref='Profile'>Profile</md-button>
 			<div layout layout-align='right'>
 				<md-button class="md-raised md-warn" ng-click="global.logout()">Logout</md-button>
+
+			<div layout layout-align="center" ng-show="global.status._id">
+				<!--<md-button ui-sref="Profile">Profile</md-button>-->
+				<md-button ng-click="global.logout()">Logout</md-button>
+
 			</div>
 		</div>
 	</md-toolbar>
+
+
 
 	<ui-view></ui-view>
 	<!-- External Libraries -->
