@@ -1,18 +1,14 @@
+<h1 align="center">InterviewPrep</h1>
+<h3>A user forum for sharing insight on interview questions and answers</h3>
 <div layout ng-show="global.status._id">
-    <span flex></span><md-button class="md-raised md-primary top-right-button" ui-sref="CreateBird"><i class="material-icons">note_add</i> Create a new bird</md-button><span flex="5"></span>
+    <span flex="5"></span><md-button class="md-raised md-primary top-right-button" ui-sref="CreateQuestion"><i class="material-icons">note_add</i> Create a new question</md-button><span flex="5"></span>
 </div>
 
 
-<div class="md-padding" layout="row" layout-wrap>
-    <div flex="25" layout="column" ng-repeat="bird in vm.birds">
-      <md-card>
-        <img ng-src="{{bird.imageUrl}}" class="md-card-image" style="height: 200px;">
-        <md-card-content>
-          <p>{{bird.name}}</p>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="center center">
-          <md-button class="md-raised md-primary" ui-sref="Bird({id: bird._id})">See more</md-button>
-        </md-card-actions>
+<md-content layout="row" layout-wrap>
+    <div flex="90" layout="column" ng-repeat="question in vm.questions">
+      <md-card layout='row' ui-sref="Question({id: question._id})">
+          <h3>{{question.name}}</h3>
       </md-card>
     </div>
-</div>
+</md-content>

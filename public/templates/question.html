@@ -1,0 +1,50 @@
+
+<div layout ng-show="global.status._id == vm.question.userName._id">
+    <span flex="5"></span>
+    <md-button class="md-raised md-primary top-right-button" ui-sref="UpdateQuestion({id: vm.question._id})"><i class="material-icons">mode_edit</i> Edit Question</md-button>
+    <md-button class="md-raised md-primary top-right-button" ng-click="vm.deleteQuestion($event)"><i class="material-icons">delete</i> Delete Question</md-button>
+</div>
+
+
+<br><p></p><br>
+<div layout layout-align="left" >
+  <span flex="5"></span>
+    <div layout="column" >
+        <h2>Question:  {{vm.question.name}}</h2>
+        <p><i>Created: </i> {{vm.question.dateCreated | date}}</p>
+        <p><i>Created by: </i> {{vm.question.userName.local.userName}}</p>
+    </div>
+</div>
+
+<div>
+  <span flex></span>
+      <md-button class="md-raised md-primary top-right-button" ui-sref="CreateAnAnswer({id: vm.question._id})"><i class="material-icons">note_add</i> Post an answer</md-button>
+  <span flex="5"></span>
+</div>
+
+<div class="md-padding" layout="column" layout-wrap>
+  
+    <div flex="25" layout="row" ng-repeat="answer in vm.answers">
+      <md-card>
+
+        <md-card-content>
+          <p>{{answer.description}}</p>
+          <p>{{answer.dateCreated | date}}</p>
+          <p>{{answer.userName.local.userName}}</p>
+        </md-card-content>
+
+        <div layout ng-show="global.status._id == vm.question.userName._id">
+            <md-card-actions layout="row" layout-align="center center" >
+
+            <audio id="song">
+              <source src="/assets/audio/1.wav" type="audio/mpeg">
+            </audio>
+
+              <md-button class="md-raised md-primary" ng-click="vm.playAudio()" ui-sref="UpdateAnAnswer({questionId: vm.question._id, answerId: answer._id})"><i class="material-icons">mode_edit</i></md-button>
+              <md-button class="md-raised md-primary" ng-click="vm.deleteAnAnswer($event, answer._id)"><i class="material-icons">delete</i></md-button>
+
+            </md-card-actions>
+        <div>
+      </md-card>
+    </div>
+</div>

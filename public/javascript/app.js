@@ -23,30 +23,30 @@
 				templateUrl: '/templates/profile.html',
 				controller: 'ProfileController as vm'
 			})
-			.state('CreateBird', {
-			    url: '/bird/create',
-			    templateUrl: '/templates/createBird.html',
-			    controller: 'CreateBirdController as vm'
+			.state('CreateQuestion', {
+			    url: '/question/create',
+			    templateUrl: '/templates/createQuestion.html',
+			    controller: 'CreateQuestionController as vm'
 			})
-			.state('Bird', {
-			    url: '/birds/:id',
-			    templateUrl: '/templates/bird.html',
-			    controller: 'BirdController as vm'
+			.state('Question', {
+			    url: '/questions/:id',
+			    templateUrl: '/templates/question.html',
+			    controller: 'QuestionController as vm'
 			})
-			.state('UpdateBird', {
-			    url: '/birds/update/:id',
-			    templateUrl: '/templates/updateBird.html',
-			    controller: 'UpdateBirdController as vm'
+			.state('UpdateQuestion', {
+			    url: '/questions/update/:id',
+			    templateUrl: '/templates/updateQuestion.html',
+			    controller: 'UpdateQuestionController as vm'
 			})
-			.state('CreateBirdSighting', {
-			    url: '/birds/:id/sighting/create',
-			    templateUrl: '/templates/createBirdSighting.html',
-			    controller: 'CreateBirdSightingController as vm'
+			.state('CreateAnAnswer', {
+			    url: '/questions/:id/answer/create',
+			    templateUrl: '/templates/createAnAnswer.html',
+			    controller: 'CreateAnAnswerController as vm'
 			})
-			.state('UpdateBirdSighting', {
-			    url: '/birds/sighting/update/:birdId/:sightingId',
-			    templateUrl: '/templates/updateBirdSighting.html',
-			    controller: 'UpdateBirdSightingController as vm'
+			.state('UpdateAnAnswer', {
+			    url: '/questions/answer/update/:questionId/:answerId',
+			    templateUrl: '/templates/updateAnAnswer.html',
+			    controller: 'UpdateAnAnswerController as vm'
 			});
 		$urlRouterProvider.otherwise('/');
 

@@ -7,6 +7,7 @@
         vm.status = UserFactory.status;
 
         vm.register = function() {
+          // console.log("GlobalController.js:10 global.user.userName = ", global.user.userName);
             UserFactory.register(vm.user).then(function(res) {
                 $mdToast.show(
                     $mdToast.simple()

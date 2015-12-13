@@ -15,8 +15,8 @@ let UserSchema = new mongoose.Schema({
     },
     password: String
   },
-  birds: [{type: mongoose.Schema.Types.ObjectId, ref: 'Bird' }],
-  birdSightings: [{type: mongoose.Schema.Types.ObjectId, ref: 'BirdSighting' }]
+  questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
+  answers: [{type: mongoose.Schema.Types.ObjectId, ref: 'AnAnswer' }]
 });
 
 UserSchema.methods.CreateHash = function(password, cb) {
@@ -42,7 +42,7 @@ UserSchema.methods.generateJWT = function() {
   return jwt.sign({
     _id: this._id,
     email: this.local.email
-}, "birdnerd");
+}, "getajob");
 };
 
 module.exports = mongoose.model('User', UserSchema);

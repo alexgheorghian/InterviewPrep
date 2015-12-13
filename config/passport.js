@@ -7,8 +7,8 @@ let User = mongoose.model('User');
 passport.use(new LocalStrategy({
   usernameField: 'email'
 }, (email, password, done) => {
-  User.findOne({
-    'local.email': email
+  User.findOne({          // Is there a user in the db with the following email address?
+    'local.email': email  // If yes, then validate the password.  Otherwise throw error.
   }, (err, user) => {
     if (err) return done(err);
     if (!user) return done(`Cannot find user requested.`);

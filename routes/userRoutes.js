@@ -3,17 +3,18 @@ let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 let passport = require('passport');
-let Bird = mongoose.model('Bird');
+let Question = mongoose.model('Question');
 let User = mongoose.model('User');
 let jwt = require('express-jwt');
 let auth = jwt({
   userProperty: 'payload',
-  secret: 'birdnerd'
+  secret: 'getajob'
 });
 
 router.post('/register', (req, res, next) => {
   if (!req.body.email || !req.body.password) return next('Include an email and password.');
   let user = new User();
+  user.local.userName = req.body.userName;
   user.local.email = req.body.email;
   user.CreateHash(req.body.password, (err, hash) => {
     if (err) return next(err);

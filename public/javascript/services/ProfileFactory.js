@@ -5,9 +5,9 @@
         var o = this;
 
 
-        o.getProfileBirds = function() {
+        o.getProfileQuestions = function() {
             var q = $q.defer();
-            $http.get("/api/v1/birds/profile", {
+            $http.get("/api/v1/questions/profile", {
                 headers: {
                 authorization: "Bearer " + $window.localStorage.getItem("token")}
                 }).then(function(res) {

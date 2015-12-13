@@ -3,11 +3,11 @@
 	angular.module('app')
 	.controller('HomeController', HomeController);
 
-	function HomeController(BirdFactory, $mdToast) {
+	function HomeController(QuestionFactory, $mdToast) {
 		var vm = this;
 
-		BirdFactory.getAllBirds().then(function(res) {
-			vm.birds = res;
+		QuestionFactory.getAllQuestions().then(function(res) {
+			vm.questions = res;
 		}, function(err) {
 			// mdToast here
 		});
